@@ -1,0 +1,80 @@
+[tool.poetry]
+name = "dl-project-template"
+version = "0.1.0"
+description = "Deep Learning Project Template"
+authors = ["Xiaotian Duan <xduan7@gmail.com>"]
+license = "MIT"
+readme = "readme.md"
+packages = [{include = "src"}]
+
+[tool.poetry.dependencies]
+python = ">=3.11,<3.12"
+jupyterlab = "^3.2.0"
+gputil = "^1.4.0"
+torch = "^2.0"
+lightning= "^2.0"
+nni = "^2.4.0"
+
+[tool.poetry.group.dev.dependencies]
+PySnooper = "1.2.0"
+black = "^23.7.0"
+isort = "^5.12.0"
+flake8 = "^6.1.0"
+flake8-annotations-complexity = "0.0.8"
+flake8-cognitive-complexity = "0.1.0"
+flake8-expression-complexity = "0.0.11"
+flake8-functions = "0.0.8"
+mypy = "^1.5.0"
+vulture = "2.8"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+preview = true
+line-length = 79
+kip-string-normalization = true
+target-version = ["py311"]
+
+[tool.isort]
+profile = "black"
+line_length = 79
+
+[tool.flake8]
+ignore = ["E203"]
+max-line-length = 79
+max-complexity = 10
+exclude = [".git", "__pycache__", "tests"]
+max-annotations-complexity = 3
+max-cognitive-complexity = 3
+max-expression-complexity = 3
+max-function-length = 100
+max-parameters-amount = 6
+max-returns-amount = 3
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+ignore_missing_imports = true
+exclude = [".git", "__pycache__", "tests"]
+
+[[tool.mypy.overrides]]
+module = "torch.*"
+follow_imports = "skip"
+follow_imports_for_stubs = true
+
+[tool.vulture]
+min_confidence = 80
+exclude = [".git", "__pycache__", "tests"]
+
+[tool.interrogate]
+fail-under = 90
+ignore-init-module = true
+ignore-magic = true
+ignore_module = true
+ignore-private = true
+ignore-nested-classes = true
+ignore-nested-functions = true
+exclude = [".git", "__pycache__", "tests"]
